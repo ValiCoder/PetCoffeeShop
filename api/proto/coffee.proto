@@ -29,5 +29,19 @@ message MenuResponse {
 }
 
 message ProductRequest {
+  string id = 1;
+}
 
+message ProductResponse {
+  string id = 1;
+  string name = 2;
+  string category = 3;
+  float price = 4;
+  string tone = 5;
+  string main_img = 6;
+
+  string full_description = 7;
+  repeated string image_gallery = 8;
+
+  map<string, string> characteristics = 9;
 }
