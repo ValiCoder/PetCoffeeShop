@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package catalog;
+
+option go_package = "./pb";
+
+service CatalogService {
+  rpc GetMenu(MenuRequest) returns (MenuResponse);
+
+  rpc GetProductDetails(ProductRequest) returns (ProductResponse);
+}
+
+message MenuRequest {
+  string category_filter = 1;
+}
+
+message MenuItem {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  string tone = 5;
+  string img = 6;
+  string category = 7;
+}
+
+message MenuResponse {
+  repeated MenuItem items = 1;
+}
+
+message ProductRequest {
+
+}
