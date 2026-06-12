@@ -32,3 +32,18 @@ type LoginInput struct {
 	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required"`
 }
+
+// AuthResponse represents the response for authentication requests
+type AuthResponse struct {
+	Token string       `json:"token" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."`
+	User  UserResponse `json:"user"`
+}
+
+// UserResponse represents the user data returned in API responses, excluding sensitive fields
+type UserResponse struct {
+	ID        int       `json:"id" example:"1"`
+	Username  string    `json:"username" example:"User_Name"`
+	Email     string    `json:"email" example:"user@example.com"`
+	RoleID    int       `json:"role_id" example:"2"`
+	CreatedAt time.Time `json:"created_at" example:"2026-06-12T16:24:54Z"`
+}

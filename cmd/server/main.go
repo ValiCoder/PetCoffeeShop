@@ -5,7 +5,7 @@ import (
 
 	_ "coffee-project/docs"
 	"coffee-project/internal/database"
-	"coffee-project/internal/handler" // Импортируем наш новый слой
+	"coffee-project/internal/handler"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
