@@ -6,6 +6,7 @@ import (
 	_ "coffee-project/docs"
 	"coffee-project/internal/database"
 	"coffee-project/internal/handler"
+	"coffee-project/internal/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -27,6 +28,8 @@ func main() {
 	defer db.Close()
 
 	r := gin.Default()
+
+	r.Use(middleware.Logger())
 
 	// Swagger route
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
