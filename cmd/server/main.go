@@ -8,6 +8,9 @@ import (
 	"coffee-project/internal/handler"
 	"coffee-project/internal/middleware"
 
+	"coffee-project/internal/repository"
+	"coffee-project/internal/usecase"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
@@ -29,19 +32,27 @@ func main() {
 
 	r := gin.Default()
 
+	r.Use(middleware.CORS())
 	r.Use(middleware.Logger())
 
 	// Swagger route
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	// Инициализируем хендлер
+	// Инициализируем слои
+	menuRepo := repository.NewPostgresMenuRepository(db.DB)
+	menuUsecase := usecase.NewMenuUsecase(menuRepo)
+
+	menuHandler := handler.NewMenuHandler(menuUsecase)
 	userHandler := handler.NewUserHandler()
+	// authHandler := handler.NewAuthHandler() // Закомментировано, пока не создашь auth.go
 
 	// API route group
 	v1 := r.Group("/api/v1")
 	{
-		// Передаем метод нашей структуры
 		v1.GET("/ping", userHandler.PingHandler)
+
+		v1.GET("/menu", menuHandler.GetMenu)
+		v1.POST("/menu", menuHandler.CreateItem)
 	}
 
 	r.Run(":8080")

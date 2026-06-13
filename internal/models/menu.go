@@ -32,3 +32,8 @@ type CreateMenuItemInput struct {
 	ImageURL    string  `json:"image_url"`
 	CategoryID  int     `json:"category_id" binding:"required"`
 }
+
+// ErrorResponse используется для возврата ошибок в формате JSON
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
